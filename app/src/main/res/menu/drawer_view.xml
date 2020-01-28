@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/Delete"
+        android:title="Delete All"
+        android:icon="@drawable/ic_delete_black_24dp"
+        />
+    <item android:id="@+id/User"
+        android:title="Edit User Name"
+        android:icon="@drawable/user" />
+    <item
+        android:id="@+id/Bug"
+        android:title="Report Bug"
+        android:icon="@drawable/bug"/>
+    <item
+        android:id="@+id/suggest"
+        android:title="Suggest Features"
+        android:icon="@drawable/ic_brush_black_24dp"/>
+
+    <item
+        android:id="@+id/Contact"
+        android:title="Contact Us"
+        android:icon="@drawable/envelope"/>
+    <item
+        android:id="@+id/updategoal"
+        android:title="Update Goal"
+        android:icon="@drawable/ic_brush_black_24dp"></item>
+
+
+</group>
+</menu>

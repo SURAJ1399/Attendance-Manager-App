@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/nav_act"
+    android:elevation="10dp"
+    style="@style/HeaderBar"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday"
+
+            android:textStyle="bold"
+            android:id="@+id/day"
+            android:textSize="15dp"
+            android:textColor="#F3EEEE"
+            android:gravity="right"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25 Jan 2019"
+            android:textStyle="bold"
+            android:id="@+id/date"
+            android:textSize="15dp"
+            android:textColor="#FF9100"
+            android:gravity="right"></TextView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minimum Goal:"
+            android:textStyle="bold"
+            android:layout_marginLeft="6dp"
+            android:textSize="17dp"
+            android:textColor="#FAF3F3"
+            ></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="75 %"
+            android:layout_marginLeft="9dp"
+            android:textStyle="bold"
+
+            android:id="@+id/da"
+            android:textSize="17dp"
+            android:textColor="#FF9100"
+            android:gravity="left"></TextView>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.Toolbar>

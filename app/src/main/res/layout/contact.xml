@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9AA33">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONTACT US AT :"
+        android:textStyle="bold"
+        android:textSize="35dp"
+        android:layout_margin="35dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Akash"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="35dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/l1"
+        android:text="Email ID"
+        android:textStyle="bold"
+
+        android:textSize="20dp"
+        android:textColor="#DF1010"
+        android:layout_marginLeft="35dp"
+        android:autoLink="all"
+        android:clickable="true"/>
+
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9AA33">
+
+
+
+    <EditText
+        android:id="@+id/minAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subjectAdd"
+        android:layout_alignStart="@+id/subjectAdd"
+        android:layout_alignLeft="@+id/subjectAdd"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textColor="#ffffff"
+
+        android:textColorHint="#344955"
+        android:text=""
+        android:hint="Minimum Attendence %"
+        />
+
+    <Button
+        android:id="@+id/AddBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/minAdd"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#344955"
+        android:textColor="#F9AA33"
+        android:text="Add" />
+
+    <Button
+        android:id="@+id/CancelBtna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/minAdd"
+        android:layout_toRightOf="@id/AddBtn"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="27dp"
+        android:backgroundTint="#344955"
+        android:textColor="#F9AA33"
+        android:layout_marginLeft="45dp"
+
+        android:text="Cancel" />
+</RelativeLayout>

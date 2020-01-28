@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9AA33"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/subj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="#243037"
+        android:text="Subject" />
+
+    <TextView
+        android:id="@+id/sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F6F6F7"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/pre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Present"
+        android:padding="8dp"
+        android:textColor="#243037"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/pres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#F6F7F8"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Absent"
+        android:padding="8dp"
+        android:textSize="20sp"
+        android:textColor="#243037"/>
+    <TextView
+        android:id="@+id/ab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#F9FBFC"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/To"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:textColor="#243037"/>
+
+    <TextView
+        android:id="@+id/T"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#F2F4F5"
+        android:textSize="20sp"/>
+
+
+    <TextView
+    android:id="@+id/mini"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:text="Minimum Attendance"
+    android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+    android:textSize="20sp"
+        android:visibility="invisible"
+        android:textColor="#243037"/>
+        <TextView
+        android:id="@+id/min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+            android:visibility="invisible"
+       android:layout_marginTop="10dp"
+            android:textColor="#F8F9FA"
+        android:textSize="20sp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Edit"
+        android:id="@+id/edit"
+        android:backgroundTint="#344955"
+        android:textColor="#F9AA33"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id1"
+
+        android:textSize="20sp"
+       android:visibility="invisible"/>
+
+</LinearLayout>
