@@ -1,6 +1,8 @@
 package com.example.tidu.attendancemanager2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -47,9 +48,9 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
         holder.mini.setText(itemList.get(i).getMinimum());
         holder.pres.setText(itemList.get(i).getPres());
         int mi=Integer.parseInt(itemList.get(i).getPres());
-         final int pre = Integer.parseInt(itemList.get(i).getPres());
+        final int pre = Integer.parseInt(itemList.get(i).getPres());
         int ab = Integer.parseInt(itemList.get(i).getAbs());
-         int tot1 = pre + ab;
+        int tot1 = pre + ab;
         double npresent=pre;
         double nabsent=(tot1-pre);
         double npercent=npresent/(nabsent+npresent)*100;
@@ -88,10 +89,10 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
                 final SharedPreferences prefs = mContext.getSharedPreferences("xyz", Context.MODE_PRIVATE);
 
                 Intent intent = new Intent(mContext, detailsSubject.class);
-              //  Toast.makeText(mContext, ""+itemList.get(i).getName(), Toast.LENGTH_SHORT).show();
+
                 intent.putExtra("IName", itemList.get(i).getName());
                 intent.putExtra("IMin", itemList.get(i).getMinimum());
-                intent.putExtra("Ipres", itemList.get(i).getPres());
+                intent.putExtra("Ipres", prefs.getString("minatt",null));
                 intent.putExtra("ITot",total);
                 intent.putExtra("Id",Integer.toString(itemList.get(i).getId()));
                 intent.putExtra("IPer",itemList.get(i).getCurrent());
@@ -105,8 +106,8 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
             @Override
             public void onClick(View v) {
                 state=1;
-                holder.undo.setEnabled(true);
-                holder.undo.setVisibility(View.VISIBLE);
+                holder.undo.setEnabled(false);
+                holder.undo.setVisibility(View.INVISIBLE);
                 int pre1 = Integer.parseInt((String) holder.pres.getText());
 
                 int total1 = Integer.parseInt((String) holder.tot.getText());
@@ -127,15 +128,90 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
                     holder.current.setText("N/A");
                 }
                 onClickListnerPlusMinus.onClickedPlus(i,sub,pre1);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                alertDialog.setTitle("Revert Back");
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Click Yes If You Want to Undo");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(state==1)
+                        {
+                            int pre1 = Integer.parseInt((String) holder.pres.getText());
+
+                            int total1 = Integer.parseInt((String) holder.tot.getText());
+                            pre1--;
+                            total1--;
+                            holder.pres.setText(pre1+"");
+                            holder.tot.setText(total1+"");
+                            double npresent=pre1;
+                            double nabsent=(total1-pre1);
+                            double npercent=npresent/(nabsent+npresent)*100;
+                            holder.status.setText(canbunk(npercent,npresent,nabsent));
+                            if(total1!=0) {
+                                double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
+                                holder.current.setText(cu + "");
+                            }
+                            else
+                            {
+                                holder.current.setText("N/A");
+                            }
+                            onClickListnerPlusMinus.onClickedPlus(i,sub,pre1);
+                            holder.undo.setEnabled(false);
+                            state=2;
+                        }
+                        else if(state==0)
+                        {
+
+                            int total1 = Integer.parseInt((String) holder.tot.getText());
+                            int ab = Integer.parseInt(itemList.get(i).getAbs());
+                            int pre1 = Integer.parseInt((String) holder.pres.getText());
+                            total1--;
+                            ab--;
+                            holder.tot.setText(total1+"");
+                            double npresent=pre1;
+                            double nabsent=(total1-pre1);
+                            double npercent=npresent/(nabsent+npresent)*100;
+                            holder.status.setText(canbunk(npercent,npresent,nabsent));
+
+                            if(total1!=0) {
+                                double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
+                                holder.current.setText(cu + "");
+                            }
+                            else
+                            {
+                                holder.current.setText("N/A");
+                            }
+                            onClickListnerPlusMinus.onClickedMinus(i,sub,ab);
+                            holder.undo.setEnabled(false);
+                            state=2;
+                        }
+
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+Intent intent=new Intent(mContext,MainActivity.class);
+mContext.startActivity(intent);
+
+
+                    }
+                });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+
 
             }
         });
         holder.absatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.undo.setEnabled(true);
-                holder.undo.setVisibility(View.VISIBLE);
-
+                holder.undo.setEnabled(false);
+                holder.undo.setVisibility(View.INVISIBLE);
                 state=0;
                 int total1 = Integer.parseInt((String) holder.tot.getText());
                 int ab = Integer.parseInt(itemList.get(i).getAbs());
@@ -157,64 +233,90 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
                     holder.current.setText("N/A");
                 }
                 onClickListnerPlusMinus.onClickedMinus(i,sub,ab);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                alertDialog.setTitle("Revert Back");
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Click Yes If You Want to Undo");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(state==1)
+                        {
+                            int pre1 = Integer.parseInt((String) holder.pres.getText());
+
+                            int total1 = Integer.parseInt((String) holder.tot.getText());
+                            pre1--;
+                            total1--;
+                            holder.pres.setText(pre1+"");
+                            holder.tot.setText(total1+"");
+                            double npresent=pre1;
+                            double nabsent=(total1-pre1);
+                            double npercent=npresent/(nabsent+npresent)*100;
+                            holder.status.setText(canbunk(npercent,npresent,nabsent));
+                            if(total1!=0) {
+                                double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
+                                holder.current.setText(cu + "");
+                            }
+                            else
+                            {
+                                holder.current.setText("N/A");
+                            }
+                            onClickListnerPlusMinus.onClickedPlus(i,sub,pre1);
+                            holder.undo.setEnabled(false);
+                            state=2;
+                        }
+                        else if(state==0)
+                        {
+
+                            int total1 = Integer.parseInt((String) holder.tot.getText());
+                            int ab = Integer.parseInt(itemList.get(i).getAbs());
+                            int pre1 = Integer.parseInt((String) holder.pres.getText());
+                            total1--;
+                            ab--;
+                            holder.tot.setText(total1+"");
+                            double npresent=pre1;
+                            double nabsent=(total1-pre1);
+                            double npercent=npresent/(nabsent+npresent)*100;
+                            holder.status.setText(canbunk(npercent,npresent,nabsent));
+
+                            if(total1!=0) {
+                                double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
+                                holder.current.setText(cu + "");
+                            }
+                            else
+                            {
+                                holder.current.setText("N/A");
+                            }
+                            onClickListnerPlusMinus.onClickedMinus(i,sub,ab);
+                            holder.undo.setEnabled(false);
+                            state=2;
+                        }
+
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent=new Intent(mContext,MainActivity.class);
+                        mContext.startActivity(intent);
+
+
+                    }
+                });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+
+
 
             }
         });
         holder.undo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(state==1)
-                {
-                    int pre1 = Integer.parseInt((String) holder.pres.getText());
-
-                    int total1 = Integer.parseInt((String) holder.tot.getText());
-                    pre1--;
-                    total1--;
-                    holder.pres.setText(pre1+"");
-                    holder.tot.setText(total1+"");
-                    double npresent=pre1;
-                    double nabsent=(total1-pre1);
-                    double npercent=npresent/(nabsent+npresent)*100;
-                    holder.status.setText(canbunk(npercent,npresent,nabsent));
-                    if(total1!=0) {
-                        double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
-                        holder.current.setText(cu + "");
-                    }
-                    else
-                    {
-                        holder.current.setText("N/A");
-                    }
-                    onClickListnerPlusMinus.onClickedPlus(i,sub,pre1);
-                    holder.undo.setEnabled(false);
-                    state=2;
-                }
-                else if(state==0)
-                {
-
-                    int total1 = Integer.parseInt((String) holder.tot.getText());
-                    int ab = Integer.parseInt(itemList.get(i).getAbs());
-                    int pre1 = Integer.parseInt((String) holder.pres.getText());
-                    total1--;
-                    ab--;
-                    holder.tot.setText(total1+"");
-                    double npresent=pre1;
-                    double nabsent=(total1-pre1);
-                    double npercent=npresent/(nabsent+npresent)*100;
-                    holder.status.setText(canbunk(npercent,npresent,nabsent));
-
-                    if(total1!=0) {
-                        double cu = (Math.round(((1.0 * pre1) / total1) * 10000)) / 100;
-                        holder.current.setText(cu + "");
-                    }
-                    else
-                    {
-                        holder.current.setText("N/A");
-                    }
-                    onClickListnerPlusMinus.onClickedMinus(i,sub,ab);
-                    holder.undo.setEnabled(false);
-                    state=2;
-                }
-            }
+               }
         });
     }
 
@@ -237,8 +339,8 @@ public class listAdapter extends RecyclerView.Adapter<listAdapter.listViewHolder
     public class listViewHolder extends RecyclerView.ViewHolder{
         TextView id,sub,mini,pres,tot,current;
         RelativeLayout parentLayout;
-CircleImageView presatt,absatt,undo;
-TextView status;
+        CircleImageView presatt,absatt,undo;
+        TextView status;
         public listViewHolder(@NonNull View itemView) {
             super(itemView);
             sub = (TextView) itemView.findViewById(R.id.subject);
@@ -260,32 +362,27 @@ TextView status;
 
     }
     public String canbunk(Double cpercent,Double cpresent,Double cabsent)
-    { double caim;
-       SharedPreferences editor = mContext.getSharedPreferences("xyz", Context.MODE_PRIVATE);
-       if(editor.contains("minatt"))
-           caim=  Double.parseDouble(editor.getString("minatt",null));
-       else
-         caim=(double)75;
+    { double caim=75;
         String cbunk;
         if(cpercent>caim)
         {
             double value;
             value=Math.floor((100*(cabsent+cpresent)-caim*(cabsent+cpresent)-100*cabsent)/caim);
             if(value==0.0)
-                cbunk="Don't miss next lecture";
+                cbunk="Status:Don't miss next lecture";
             else
-                cbunk="You can Bunk next "+String.format("%.0f",value)+" lectures";
+                cbunk="Status:You can Bunk next "+String.format("%.0f",value)+" lectures";
         }
         else
         if(cpercent<caim)
         {
             double value;
             value=Math.ceil(((cpresent+cabsent)*caim-100*cpresent)/(100-caim));
-            cbunk="You must attend next "+String.format("%.0f",value)+" lectures";
+            cbunk="Status:You must attend next "+String.format("%.0f",value)+" lectures";
         }
         else
         {
-            cbunk="Don't miss next lecture";
+            cbunk="Status:Don't miss next lecture";
         }
         return cbunk;
     }

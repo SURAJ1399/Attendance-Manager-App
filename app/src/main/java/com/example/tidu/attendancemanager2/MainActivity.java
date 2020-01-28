@@ -36,12 +36,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     Cursor c;
-   //EditText editName,editmin,editabs,editpre ,editTextId;
-   //Button btnAddData;
-   //Button btnviewAll;
-   //Button btnDelete;
+    //EditText editName,editmin,editabs,editpre ,editTextId;
+    //Button btnAddData;
+    //Button btnviewAll;
+    //Button btnDelete;
     private DrawerLayout DrawerLayout1;
-   //Button btnviewUpdate;
+    //Button btnviewUpdate;
     private ActionBarDrawerToggle mToggle;
     private android.support.v7.widget.Toolbar mToolbar;
     private List<SubjectInfo> itemList;
@@ -75,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
-       // String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+        // String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
 // textView is the TextView view that should display it
-       date.setText(formattedDate);
-       day.setText(dayOfTheWeek+" ");
+        date.setText(formattedDate);
+        day.setText(dayOfTheWeek+" ");
         mToggle=new ActionBarDrawerToggle(this,DrawerLayout1,R.string.open,R.string.close);
         DrawerLayout1.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -91,15 +91,15 @@ public class MainActivity extends AppCompatActivity {
         final TextView da=findViewById(R.id.da);
         final SharedPreferences prefs = getApplicationContext().getSharedPreferences("xyz", Context.MODE_PRIVATE);
 
-              if(prefs.getString("minatt", null)!=null){
-                 minatte=prefs.getString("minatt",null);
-                  da.setText(minatte+" %");
-              }
-      else
-              {
-                  minatte="75";
-              }
-      da.setText(minatte+"%");
+        if(prefs.getString("minatt", null)!=null){
+            minatte=prefs.getString("minatt",null);
+            da.setText(minatte+" %");
+        }
+        else
+        {
+            minatte="75";
+        }
+        da.setText(minatte+"%");
         final RecyclerView subList = (RecyclerView) findViewById(R.id.subList);
         itemList = new ArrayList<>();
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             itemList.add(new SubjectInfo(res.getInt(0),res.getString(1),res.getString(2),
                     res.getString(3),res.getString(4),res.getString(5)));
         }
-        mlistAd = new listAdapter(this, itemList, new onClickListnerPlusMinus() {
+        mlistAd = new listAdapter(this,itemList, new onClickListnerPlusMinus() {
             @Override
             public void onClickedMinus(int position,String sub,int a) {
                 String ab = Integer.toString(a);
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         mlayoutManager = new LinearLayoutManager(this);
         subList.setAdapter(mlistAd);
         subList.setLayoutManager(mlayoutManager);
+
 
 
 
@@ -451,46 +452,46 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {                      //intructions to be performed if add button is clicked
                         String subject = sub.getText().toString().trim();//stores the value of subject typed
                         if(prefs.getString("minatt",null)!=null)
-                        minimum = prefs.getString("minatt",null);//stores the minimum attendence
+                            minimum = prefs.getString("minatt",null);//stores the minimum attendence
                         else
-                          minimum="75";
+                            minimum="75";
                         Toast.makeText(MainActivity.this, ""+minimum, Toast.LENGTH_SHORT).show();
                         if (subject.isEmpty() || minimum.isEmpty()) {
                             Toast.makeText(MainActivity.this, "Subject Not added. Fill all the fields", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                        if ((subject.trim().length() != 0) && (minimum.trim().length() != 0)) {
-                            boolean isinserted = myDb.insertData(subject, minimum, "0", "0", "0");//inserts data
-                            if (isinserted)
-                                Toast.makeText(MainActivity.this, "Data added"+minimum, Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(MainActivity.this, "Some Error Occured", Toast.LENGTH_SHORT).show();
+                            if ((subject.trim().length() != 0) && (minimum.trim().length() != 0)) {
+                                boolean isinserted = myDb.insertData(subject, minimum, "0", "0", "0");//inserts data
+                                if (isinserted)
+                                    Toast.makeText(MainActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(MainActivity.this, "Some Error Occured", Toast.LENGTH_SHORT).show();
 
-                            itemList = new ArrayList<>();
-                            Cursor res = myDb.getAllData();
-                            while (res.moveToNext()) {
-                                itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
-                                        res.getString(3), res.getString(4), res.getString(5)));
+                                itemList = new ArrayList<>();
+                                Cursor res = myDb.getAllData();
+                                while (res.moveToNext()) {
+                                    itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
+                                            res.getString(3), res.getString(4), res.getString(5)));
+                                }
+                                mlistAd = new listAdapter(MainActivity.this,itemList, new onClickListnerPlusMinus() {
+                                    @Override
+                                    public void onClickedMinus(int position, String sub, int a) {
+                                        String ab = Integer.toString(a);
+                                        myDb.updateabs(sub, ab);
+                                    }
+
+                                    @Override
+                                    public void onClickedPlus(int position, String sub, int p) {
+                                        String pr = Integer.toString(p);
+                                        myDb.updatepres(sub, pr);
+                                    }
+                                });
+                                subList.setAdapter(mlistAd);
+
+                                add_dialog.dismiss();
                             }
-                            mlistAd = new listAdapter(MainActivity.this, itemList, new onClickListnerPlusMinus() {
-                                @Override
-                                public void onClickedMinus(int position, String sub, int a) {
-                                    String ab = Integer.toString(a);
-                                    myDb.updateabs(sub, ab);
-                                }
-
-                                @Override
-                                public void onClickedPlus(int position, String sub, int p) {
-                                    String pr = Integer.toString(p);
-                                    myDb.updatepres(sub, pr);
-                                }
-                            });
-                            subList.setAdapter(mlistAd);
-
-                            add_dialog.dismiss();
                         }
-                    }
                     }
                 });
 
@@ -530,35 +531,35 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Subject not deleted. Fill the subject", Toast.LENGTH_LONG).show();
                         }
                         else {
-                        Integer deletedRows = myDb.deleteData(subject);
-                        if (deletedRows > 0)
-                            Toast.makeText(MainActivity.this, "Data Deleted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(MainActivity.this, "Data not Deleted", Toast.LENGTH_LONG).show();
+                            Integer deletedRows = myDb.deleteData(subject);
+                            if (deletedRows > 0)
+                                Toast.makeText(MainActivity.this, "Data Deleted", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(MainActivity.this, "Data not Deleted", Toast.LENGTH_LONG).show();
 
-                        itemList = new ArrayList<>();
-                        Cursor res = myDb.getAllData();
-                        while (res.moveToNext()) {
-                            itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
-                                    res.getString(3), res.getString(4), res.getString(5)));
+                            itemList = new ArrayList<>();
+                            Cursor res = myDb.getAllData();
+                            while (res.moveToNext()) {
+                                itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
+                                        res.getString(3), res.getString(4), res.getString(5)));
+                            }
+                            mlistAd = new listAdapter(MainActivity.this,itemList, new onClickListnerPlusMinus() {
+                                @Override
+                                public void onClickedMinus(int position, String sub, int a) {
+                                    String ab = Integer.toString(a);
+                                    myDb.updateabs(sub, ab);
+                                }
+
+                                @Override
+                                public void onClickedPlus(int position, String sub, int p) {
+                                    String pr = Integer.toString(p);
+                                    myDb.updatepres(sub, pr);
+                                }
+                            });
+                            subList.setAdapter(mlistAd);
+
+                            add_dialog2.dismiss();
                         }
-                        mlistAd = new listAdapter(MainActivity.this, itemList, new onClickListnerPlusMinus() {
-                            @Override
-                            public void onClickedMinus(int position, String sub, int a) {
-                                String ab = Integer.toString(a);
-                                myDb.updateabs(sub, ab);
-                            }
-
-                            @Override
-                            public void onClickedPlus(int position, String sub, int p) {
-                                String pr = Integer.toString(p);
-                                myDb.updatepres(sub, pr);
-                            }
-                        });
-                        subList.setAdapter(mlistAd);
-
-                        add_dialog2.dismiss();
-                    }
 
                     }
                 });
@@ -576,11 +577,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }return super.onOptionsItemSelected(item);
-}
+    }
 
 }
