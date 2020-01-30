@@ -7,6 +7,7 @@
     android:id="@+id/nav_act"
     android:elevation="10dp"
     style="@style/HeaderBar"
+    android:background="#313536"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
 
     >

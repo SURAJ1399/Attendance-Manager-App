@@ -4,12 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 <group>
     <path android:name="square"
-        android:fillColor="#299934"
+        android:fillColor="#07F822"
         android:pathData="M0,0 L24,0 L24,24 L0,24 z" />
 
 
 
-    <path android:fillColor="#F5EFEF"
+    <path android:fillColor="#131111"
         android:pathData="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41,-1.41z"/>
 
 </group>

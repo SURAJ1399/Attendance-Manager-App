@@ -16,41 +16,44 @@ public class detailsSubject extends AppCompatActivity{
     DatabaseHelper mydb;
     String SName,SMin,SPres,SAbs,SID,STot;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(subject_details);
         getIncomingIntent();
         mydb = new DatabaseHelper(this);
-        Cursor res =mydb.getAllData();
-        while(res.moveToNext()) {
+        Cursor res = mydb.getAllData();
+        while (res.moveToNext()) {
             int id = res.getInt(0);
-            if(id == Integer.parseInt(SID));
+            if (id == Integer.parseInt(SID)) ;
             {
                 String name = res.getString(1);
                 String min = res.getString(2);
                 String pres = res.getString(3);
                 String abs = res.getString(4);
                 String tot = String.valueOf(Integer.parseInt(pres) + Integer.parseInt(abs));
-                if(name.equalsIgnoreCase(SName))
-                SetText(name, min, pres, abs, tot, SID);
+                if (name.equalsIgnoreCase(SName)) SetText(name, min, pres, abs, tot, SID);
                 break;
             }
         }
-        Button E =  (Button) findViewById(R.id.edit);
+        Button E = (Button) findViewById(R.id.edit);
         E.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent EDIT = new Intent(detailsSubject.this,EditData.class);
-                EDIT.putExtra("Id",SID);
-                EDIT.putExtra("name",SName);
-                EDIT.putExtra("Min",SMin);
-                EDIT.putExtra("P",SPres);
-                EDIT.putExtra("A",SAbs);
-                EDIT.putExtra("ID",SID);
-                startActivity(EDIT);
-            }
+            public void onClick(View v) {
 
-        }); }
+                Intent EDIT = new Intent(detailsSubject.this, EditData.class);
+                EDIT.putExtra("Id", SID);
+                EDIT.putExtra("name", SName);
+                EDIT.putExtra("Min", SMin);
+                EDIT.putExtra("P", SPres);
+                EDIT.putExtra("A", SAbs);
+                EDIT.putExtra("ID", SID);
+                startActivity(EDIT);
+
+            }
+        });
+
+    }
+
     private void getIncomingIntent() {
         if (getIntent().hasExtra("IName") && getIntent().hasExtra("IMin") && getIntent().hasExtra("Ipres") && getIntent().hasExtra("ITot")) {
             SName = getIntent().getStringExtra("IName");

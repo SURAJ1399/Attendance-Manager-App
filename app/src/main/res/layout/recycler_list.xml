@@ -4,7 +4,7 @@
 
     android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="140dp"
     android:orientation="vertical">
 
     <android.support.design.card.MaterialCardView
@@ -18,7 +18,7 @@
         android:padding="12dp"
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
-        app:cardBackgroundColor="#344955"
+        app:cardBackgroundColor="#313536"
         app:cardCornerRadius="10dp"
         app:cardElevation="20dp">
 
@@ -36,15 +36,23 @@
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:visibility="invisible" />
+            <View
+                android:id="@+id/line"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="6dp"
+                android:layout_height="25dp"
+                android:background="#00E5FF" />
 
             <TextView
                 android:id="@+id/subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:textAllCaps="true"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:text="TextView"
-                android:textColor="#F9AA33"
+                android:textColor="#ECE9E5"
                 android:textSize="20dp"
 
                 android:textStyle="bold"

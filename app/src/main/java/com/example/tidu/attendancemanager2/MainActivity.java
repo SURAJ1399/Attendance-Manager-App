@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             itemList.add(new SubjectInfo(res.getInt(0),res.getString(1),res.getString(2),
                     res.getString(3),res.getString(4),res.getString(5)));
         }
-        mlistAd = new listAdapter(this,itemList, new onClickListnerPlusMinus() {
+        mlistAd = new listAdapter(this, itemList, new onClickListnerPlusMinus() {
             @Override
             public void onClickedMinus(int position,String sub,int a) {
                 String ab = Integer.toString(a);
@@ -128,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
         mlayoutManager = new LinearLayoutManager(this);
         subList.setAdapter(mlistAd);
         subList.setLayoutManager(mlayoutManager);
-
-
+subList.setHasFixedSize(false);
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -350,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                             cancel_Btna.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {////intructions to be performed if cancel button is clicked
-                                    
+
                                     add_dialog.dismiss();
                                 }
                             });
@@ -464,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
                             if ((subject.trim().length() != 0) && (minimum.trim().length() != 0)) {
                                 boolean isinserted = myDb.insertData(subject, minimum, "0", "0", "0");//inserts data
                                 if (isinserted)
-                                    Toast.makeText(MainActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Data added"+minimum, Toast.LENGTH_SHORT).show();
                                 else
                                     Toast.makeText(MainActivity.this, "Some Error Occured", Toast.LENGTH_SHORT).show();
 
@@ -474,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
                                     itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
                                             res.getString(3), res.getString(4), res.getString(5)));
                                 }
-                                mlistAd = new listAdapter(MainActivity.this,itemList, new onClickListnerPlusMinus() {
+                                mlistAd = new listAdapter(MainActivity.this, itemList, new onClickListnerPlusMinus() {
                                     @Override
                                     public void onClickedMinus(int position, String sub, int a) {
                                         String ab = Integer.toString(a);
@@ -543,7 +542,7 @@ public class MainActivity extends AppCompatActivity {
                                 itemList.add(new SubjectInfo(res.getInt(0), res.getString(1), res.getString(2),
                                         res.getString(3), res.getString(4), res.getString(5)));
                             }
-                            mlistAd = new listAdapter(MainActivity.this,itemList, new onClickListnerPlusMinus() {
+                            mlistAd = new listAdapter(MainActivity.this, itemList, new onClickListnerPlusMinus() {
                                 @Override
                                 public void onClickedMinus(int position, String sub, int a) {
                                     String ab = Integer.toString(a);

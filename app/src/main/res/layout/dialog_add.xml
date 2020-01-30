@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9AA33">
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#CCC8C2">
 
 
     <EditText
@@ -51,7 +51,7 @@ android:clickable="false"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         android:backgroundTint="#344955"
         android:textColor="#F9AA33"
         android:text="Add" />
@@ -62,7 +62,7 @@ android:clickable="false"
         android:layout_height="wrap_content"
         android:layout_below="@id/minAdd"
         android:layout_toRightOf="@id/AddBtn"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="27dp"
         android:backgroundTint="#344955"
         android:textColor="#F9AA33"
